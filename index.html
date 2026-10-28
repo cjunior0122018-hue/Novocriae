@@ -220,6 +220,14 @@ section.section-arrive{animation:arrive 1.1s ease}
 @keyframes arrive{0%{filter:brightness(1.22)}100%{filter:brightness(1)}}
   .marquee-rev{background:var(--ink);color:var(--cream);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .marquee-rev .marquee-track{will-change:transform}
+
+.word-reveal .wmask{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.14em;margin-bottom:-.14em}
+.word-reveal .wword{display:inline-block;opacity:0;transform:translateY(110%);transition:transform .85s cubic-bezier(.22,1,.36,1),opacity .6s ease}
+.word-reveal.in .wword{opacity:1;transform:none}
+.word-reveal .word-fade{opacity:0;transition:opacity .8s ease}
+.word-reveal.in .word-fade{opacity:1}
+.fade-up{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,1,.36,1)}
+.fade-up.in{opacity:1;transform:none}
 </style>
 </head>
 <body>
@@ -595,6 +603,45 @@ section.section-arrive{animation:arrive 1.1s ease}
         });
       }, {rootMargin: '-40% 0px -55% 0px'});
       document.querySelectorAll('section[id]').forEach(function(s){ spy.observe(s); });
+    }
+  })();
+</script>
+<script>
+  (function(){
+    function splitWords(el){
+      el.classList.add('word-reveal');
+      var idx = 0;
+      Array.prototype.slice.call(el.childNodes).forEach(function(node){
+        if (node.nodeType === 3) {
+          var words = node.textContent.split(/\s+/).filter(Boolean);
+          if (!words.length) return;
+          var frag = document.createDocumentFragment();
+          words.forEach(function(w, i){
+            var mask = document.createElement('span'); mask.className = 'wmask';
+            var word = document.createElement('span'); word.className = 'wword'; word.textContent = w;
+            word.style.transitionDelay = (idx * 60) + 'ms'; idx++;
+            mask.appendChild(word); frag.appendChild(mask);
+            if (i < words.length - 1) frag.appendChild(document.createTextNode(' '));
+          });
+          el.replaceChild(frag, node);
+        } else if (node.nodeType === 1 && node.tagName !== 'BR') {
+          node.classList.add('word-fade');
+          node.style.transitionDelay = (idx * 60) + 'ms'; idx++;
+        }
+      });
+    }
+    var targets = document.querySelectorAll('h1, h2, .big-statement');
+    targets.forEach(splitWords);
+    var fades = document.querySelectorAll('.section-head p, p.lead, .block.final p');
+    fades.forEach(function(p){ p.classList.add('fade-up'); });
+    var all = Array.prototype.slice.call(targets).concat(Array.prototype.slice.call(fades));
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+      }, {threshold: 0.2});
+      all.forEach(function(el){ obs.observe(el); });
+    } else {
+      all.forEach(function(el){ el.classList.add('in'); });
     }
   })();
 </script>
