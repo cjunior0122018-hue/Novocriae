@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo — Sistema de Agendamento</title>
+<meta name="description" content="Demo de sistema de agendamento em português: escolha o dia e o horário e confirme o atendimento.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box} body{margin:0;font-family:Manrope,system-ui,sans-serif;background:#faf6ec;color:#121212;line-height:1.6}
+  h1,h2,h3{font-family:"Space Grotesk",sans-serif;letter-spacing:-.03em;line-height:1.05;margin:0}
+  h1{font-size:clamp(2.2rem,5vw,3.6rem)} h2{font-size:clamp(1.6rem,3vw,2.2rem)}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+  .demo-bar{background:#121212;color:#faf6ec;padding:10px 0;font-size:.9rem;font-weight:700}
+  .demo-bar a{color:#ffd400}
+  header{padding:22px 0;border-bottom:1px solid #e3dcc8;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+  .logo{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:1.5rem}
+  .btn{display:inline-flex;background:#121212;color:#faf6ec;font-weight:800;text-decoration:none;padding:14px 24px;border-radius:999px;border:0;cursor:pointer}
+  .hero{padding:56px 0}
+  .hero p{font-size:1.1rem;color:#4a463c;max-width:620px;margin-top:14px}
+  .book{background:#fffdf6;border:1px solid #e3dcc8;border-radius:20px;padding:28px;margin-bottom:50px}
+  .grid{display:grid;gap:12px;margin-top:16px}
+  .slot,.day{border:1px solid #121212;background:transparent;padding:12px;border-radius:12px;font-weight:800;cursor:pointer;font-size:1rem}
+  .slot.active,.day.active{background:#ffd400}
+  label{display:block;font-weight:800;margin-top:18px}
+  input,select{width:100%;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:1rem;margin-top:6px}
+  .ok{display:none;background:#121212;color:#faf6ec;border-radius:16px;padding:24px;margin-top:22px}
+  .ok.show{display:block}
+  footer{padding:30px 0;color:#4a463c}
+  @media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div class="demo-bar"><div class="wrap">Demo criado pela Criaê · <a href="index.html">Voltar para o site da Criaê</a></div></div>
+<header class="wrap"><span class="logo">Sistema de Agendamento</span><a class="btn" href="https://wa.me/message/ZNRLVR6JCD77M1?text=Ol%C3%A1!%20Vi%20o%20demo%20de%20sistema%20de%20agendamento%20no%20site%20da%20Cria%C3%AA%20e%20quero%20um%20sistema%20assim%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener">Quero um sistema assim</a></header>
+<main class="wrap">
+  <section class="hero">
+    <h1>Seu cliente marca sozinho, sem trocar dezenas de mensagens.</h1>
+    <p>Escolha um dia, um horário e confirme. Esta é uma demonstração: o agendamento aqui não marca um atendimento de verdade.</p>
+  </section>
+  <section class="book">
+    <h2>Agende seu horário</h2>
+    <label>Dia</label>
+    <div class="grid" id="days"></div>
+    <label>Horário</label>
+    <div class="grid" id="slots"></div>
+    <label for="nome">Seu nome</label>
+    <input id="nome" type="text" placeholder="Seu nome">
+    <label for="servico">Serviço</label>
+    <select id="servico"><option>Atendimento</option><option>Consulta</option><option>Serviço completo</option></select>
+    <div style="margin-top:22px"><button class="btn" type="button" id="confirm">Confirmar agendamento →</button></div>
+    <div class="ok" id="ok"><h3>Agendamento confirmado na demonstração!</h3><p id="okText"></p><p style="margin-top:12px">Quer um sistema assim para o seu negócio? <a href="https://wa.me/message/ZNRLVR6JCD77M1?text=Ol%C3%A1!%20Vi%20o%20demo%20de%20sistema%20de%20agendamento%20no%20site%20da%20Cria%C3%AA%20e%20quero%20um%20sistema%20assim%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener" style="color:#ffd400;font-weight:800">Chama a Criaê no WhatsApp →</a></p></div>
+  </section>
+</main>
+<footer class="wrap"><p>Site demo · Criado pela Criaê · Ideias que viram presença.</p></footer>
+<script>
+  var daysEl = document.getElementById('days'), slotsEl = document.getElementById('slots');
+  var chosenDay = '', chosenSlot = '';
+  var days = [];
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(); d.setDate(d.getDate() + i);
+    days.push(d.toLocaleDateString('pt-BR', {weekday:'short', day:'2-digit', month:'short'}));
+  }
+  days.forEach(function(label, idx){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'day'; b.textContent = label;
+    b.addEventListener('click', function(){
+      chosenDay = label;
+      daysEl.querySelectorAll('.day').forEach(function(x){x.classList.remove('active')}); b.classList.add('active');
+    });
+    daysEl.appendChild(b);
+    if (idx === 0) { chosenDay = label; b.classList.add('active'); }
+  });
+  ['09:00','10:30','14:00','16:00'].forEach(function(h, idx){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'slot'; b.textContent = h;
+    b.addEventListener('click', function(){
+      chosenSlot = h;
+      slotsEl.querySelectorAll('.slot').forEach(function(x){x.classList.remove('active')}); b.classList.add('active');
+    });
+    slotsEl.appendChild(b);
+    if (idx === 0) { chosenSlot = h; b.classList.add('active'); }
+  });
+  document.getElementById('confirm').addEventListener('click', function(){
+    var nome = document.getElementById('nome').value.trim() || 'você';
+    var serv = document.getElementById('servico').value;
+    document.getElementById('okText').textContent = nome + ', seu ' + serv.toLowerCase() + ' ficou marcado para ' + chosenDay + ' às ' + chosenSlot + ' (demonstração).';
+    document.getElementById('ok').classList.add('show');
+  });
+</script>
+</body>
+</html>
