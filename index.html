@@ -115,6 +115,18 @@
   /* v21 quieta — conversão: conteúdo já visível, sem animações */
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
   .float-wa{animation:none!important}
+
+  /* v22 — mobile: topo sem aperto, botão flutuante compacto e sem cobrir o CTA final */
+  body{overflow-x:hidden}
+  .float-wa{padding:13px 20px;font-size:.95rem;transition:opacity .3s ease,transform .3s ease}
+  .float-wa.float-hidden{opacity:0;pointer-events:none;transform:translateY(10px)}
+  @media (max-width:760px){
+    .head .btn{display:none}
+  }
+  @media (max-width:460px){
+    .float-wa{left:auto;right:16px;bottom:16px;padding:13px 18px;text-align:center}
+    footer{padding-bottom:100px}
+  }
 </style>
 </head>
 <body>
@@ -330,6 +342,14 @@
     var obs = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } }); }, {threshold: 0.12});
     document.querySelectorAll('.reveal').forEach(function(el, i){ el.style.transitionDelay = ((i % 4) * 70) + 'ms'; obs.observe(el); });
   } else { document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); }); }
+
+  var floatWa = document.querySelector('.float-wa'); var finalSec = document.getElementById('contato');
+  if (floatWa && finalSec && 'IntersectionObserver' in window) {
+    var floatObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ floatWa.classList.toggle('float-hidden', e.isIntersecting); });
+    }, {threshold: 0.25});
+    floatObs.observe(finalSec);
+  }
 </script>
 </body>
 </html>
