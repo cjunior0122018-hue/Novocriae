@@ -74,7 +74,7 @@
   .tabs button.active{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
   /* Marquee */
   .marquee{background:var(--yellow);color:var(--ink);overflow:hidden;padding:15px 0;font-family:"Space Grotesk",sans-serif;font-weight:700;white-space:nowrap;font-size:1.05rem}
-  .marquee-track{display:inline-flex;gap:38px;will-change:transform}
+  .marquee-track{display:inline-flex;gap:0;will-change:transform}
   @keyframes scroll{to{transform:translateX(-50%)}}
   @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.marquee-track{animation:none}.reveal{transition:none!important}}
   /* Sections */
@@ -484,10 +484,13 @@
     var offset = 0, last = performance.now();
     (function step(now){
       var dt = Math.min(now - last, 100); last = now;
-      offset += (55 * dt) / 1000;
       var cycle = track.scrollWidth / 3;
-      if (cycle > 0 && offset >= cycle) offset -= cycle;
-      track.style.transform = 'translateX(' + (-dir * offset) + 'px)';
+      if (cycle > 0) {
+        offset += (55 * dt) / 1000;
+        offset = ((offset % cycle) + cycle) % cycle;
+        // Esquerda: 0 -> -cycle. Direita (preta): -cycle -> 0, sempre preenchida.
+        track.style.transform = 'translateX(' + (dir === 1 ? -offset : offset - cycle) + 'px)';
+      }
       requestAnimationFrame(step);
     })(last);
   });
