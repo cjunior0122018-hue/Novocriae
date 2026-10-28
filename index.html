@@ -184,6 +184,14 @@
   .float-wa{animation:pulse 2.4s ease-in-out infinite}
   @keyframes pulse{0%,100%{box-shadow:0 10px 30px rgba(0,0,0,.4)}50%{box-shadow:0 10px 30px rgba(0,0,0,.4),0 0 0 12px rgba(255,212,0,.22)}}
   @media (max-width:700px){.hero .cta-row .btn{width:100%;justify-content:center}}
+
+  .compare .box{background:#fffdf6;color:var(--ink)}
+  .compare .box h3{color:var(--ink)}
+  .compare .box li{color:#4a463c}
+  .compare .box.good{background:var(--ink);color:var(--cream)}
+  .compare .box.good h3{color:var(--cream)}
+  .compare .box.good li{color:#cfc7b0}
+  section{scroll-margin-top:96px}
 </style>
 </head>
 <body>
@@ -239,8 +247,8 @@
         <div class="tabs" role="group" aria-label="Trocar projeto em destaque">
           <button type="button" class="active" data-i="0">Beleza</button>
           <button type="button" data-i="1">Tatuagem</button>
-          <button type="button" data-i="2">PneuPronto</button>
-          <button type="button" data-i="3">Vivaliss</button>
+          <button type="button" data-i="2">Automotivo</button>
+          <button type="button" data-i="3">Produto</button>
         </div>
       </div>
     </div>
@@ -288,7 +296,7 @@
         <article class="case reveal">
           <div class="case-info">
             <span class="seg">Automotivo • Serviços</span>
-            <h3>PneuPronto</h3>
+            <h3>Serviço Automotivo</h3>
             <p>Confiança e clareza para quem procura um serviço e quer resolver rápido.</p>
             <ul><li>Serviços explicados sem jargão</li><li>Contato fácil em qualquer tela</li><li>Apresentação consistente</li></ul>
           </div>
@@ -297,7 +305,7 @@
         <article class="case reveal">
           <div class="case-info">
             <span class="seg">Produto • Conversão</span>
-            <h3>Vivaliss</h3>
+            <h3>Página de Produto</h3>
             <p>Benefícios e oferta organizados para conduzir a decisão de compra.</p>
             <ul><li>Benefício principal em destaque</li><li>Oferta organizada, sem ruído</li><li>Caminho direto para a compra</li></ul>
           </div>
@@ -317,7 +325,7 @@
         <div class="svc reveal"><span class="n">01</span><h3>Site institucional</h3><p>A presença completa da empresa: serviços, história e contato organizados para gerar confiança.</p><ul><li>Design personalizado</li><li>Textos orientados</li><li>WhatsApp integrado</li></ul></div>
         <div class="svc reveal"><span class="n">02</span><h3>Landing page</h3><p>Uma página focada em uma única oferta, feita para transformar visitas em conversas.</p><ul><li>Oferta clara</li><li>Chamadas estratégicas</li><li>Leitura rápida no celular</li></ul></div>
         <div class="svc reveal"><span class="n">03</span><h3>Portfólio</h3><p>Seus trabalhos apresentados como vitrine, para o cliente desejar antes mesmo de chamar.</p><ul><li>Galeria valorizada</li><li>Pedido de orçamento</li><li>Identidade marcante</li></ul></div>
-        <div class="svc reveal"><span class="n">04</span><h3>Página de produto</h3><p>Benefícios e oferta organizados para conduzir a decisão de compra, como fizemos na Vivaliss.</p><ul><li>Benefícios claros</li><li>Oferta organizada</li><li>Caminho direto para a compra</li></ul></div>
+        <div class="svc reveal"><span class="n">04</span><h3>Página de produto</h3><p>Benefícios e oferta organizados para conduzir a decisão de compra, com benefícios e oferta organizados.</p><ul><li>Benefícios claros</li><li>Oferta organizada</li><li>Caminho direto para a compra</li></ul></div>
       </div>
     </div>
   </section>
@@ -403,8 +411,8 @@
   var projects = [
     {seg:"Beleza • Agendamento", name:"Studio de beleza", desc:"Serviços valorizados e caminho direto para o agendamento."},
     {seg:"Portfólio • Orçamento", name:"Studio de tatuagem", desc:"Uma identidade marcante que transforma trabalhos em pedidos de orçamento."},
-    {seg:"Automotivo • Serviços", name:"PneuPronto", desc:"Confiança, clareza e uma experiência rápida em qualquer tela."},
-    {seg:"Produto • Conversão", name:"Vivaliss", desc:"Benefícios e oferta organizados para conduzir a decisão de compra."}
+    {seg:"Automotivo • Serviços", name:"Serviço Automotivo", desc:"Confiança, clareza e uma experiência rápida em qualquer tela."},
+    {seg:"Produto • Conversão", name:"Página de Produto", desc:"Benefícios e oferta organizados para conduzir a decisão de compra."}
   ];
   var btns = document.querySelectorAll('.tabs button');
   var caseImgs = document.querySelectorAll('.case-img');
