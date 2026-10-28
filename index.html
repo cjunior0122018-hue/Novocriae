@@ -192,10 +192,34 @@
   .compare .box.good h3{color:var(--cream)}
   .compare .box.good li{color:#cfc7b0}
   section{scroll-margin-top:96px}
+
+  #progress{position:fixed;top:0;left:0;height:4px;background:var(--yellow);width:0;z-index:70}
+  .hero{position:relative}
+  .hero-glow{position:absolute;right:-120px;top:-80px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,212,0,.22),transparent 65%);pointer-events:none;animation:floatGlow 9s ease-in-out infinite alternate}
+  @keyframes floatGlow{from{transform:translate(0,0)}to{transform:translate(-40px,40px)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  .hero h1{animation:fadeUp .7s ease both}
+  .hero .lead{animation:fadeUp .7s .12s ease both}
+  .hero .cta-row{animation:fadeUp .7s .24s ease both}
+  .hero .hero-foot{animation:fadeUp .7s .32s ease both}
+  .hero .browser{animation:fadeUp .7s .18s ease both}
+  #showImg{animation:kenburns 14s ease-in-out infinite alternate}
+  @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.06)}}
+  .case-img{transition:transform .6s ease}
+  .case:hover .case-img{transform:scale(1.05)}
+  .btn{position:relative;overflow:hidden}
+  .btn:after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .6s ease}
+  .btn:hover:after{left:130%}
+  nav.main a{position:relative}
+  nav.main a:after{content:"";position:absolute;left:0;bottom:-5px;height:2px;width:0;background:var(--yellow);transition:width .25s ease}
+  nav.main a:hover:after{width:100%}
+  .marquee-rev{background:var(--ink);color:var(--cream);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .marquee-rev .marquee-track{will-change:transform}
 </style>
 </head>
 <body>
 <a class="skip" href="#inicio">Pular para o conteúdo</a>
+<div id="progress" aria-hidden="true"></div>
 <header>
   <div class="wrap head">
     <a class="logo" href="#inicio">Criaê<i>.</i></a>
@@ -219,6 +243,7 @@
 
 <main>
   <section class="hero" id="inicio">
+    <div class="hero-glow" aria-hidden="true"></div>
     <div class="wrap hero-grid">
       <div>
         <span class="hero-tag"><b aria-hidden="true"></b> Sites profissionais para negócios locais</span>
@@ -380,6 +405,14 @@
     </div>
   </section>
 
+  <div class="marquee marquee-rev" aria-hidden="true">
+    <div class="marquee-track" data-dir="-1">
+      <span>Sites profissionais ✦ Landing pages ✦ Portfólios ✦ Páginas de vendas ✦ WhatsApp integrado ✦ Design responsivo ✦&nbsp;</span>
+      <span>Sites profissionais ✦ Landing pages ✦ Portfólios ✦ Páginas de vendas ✦ WhatsApp integrado ✦ Design responsivo ✦&nbsp;</span>
+      <span>Sites profissionais ✦ Landing pages ✦ Portfólios ✦ Páginas de vendas ✦ WhatsApp integrado ✦ Design responsivo ✦&nbsp;</span>
+    </div>
+  </div>
+
   <section class="block final" id="contato">
     <div class="wrap">
       <h2>Se o seu trabalho é profissional, sua presença também precisa ser.</h2>
@@ -446,18 +479,26 @@
     browserBox.addEventListener('mouseleave', restartShowTimer);
   }
   restartShowTimer();
-  var track = document.querySelector('.marquee-track');
-  if (track) {
+  document.querySelectorAll('.marquee-track').forEach(function(track){
+    var dir = track.getAttribute('data-dir') === '-1' ? -1 : 1;
     var offset = 0, last = performance.now();
     (function step(now){
       var dt = Math.min(now - last, 100); last = now;
       offset += (55 * dt) / 1000;
       var cycle = track.scrollWidth / 3;
       if (cycle > 0 && offset >= cycle) offset -= cycle;
-      track.style.transform = 'translateX(' + (-offset) + 'px)';
+      track.style.transform = 'translateX(' + (-dir * offset) + 'px)';
       requestAnimationFrame(step);
     })(last);
+  });
+  var progress = document.getElementById('progress');
+  function updateProgress(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    if (progress) progress.style.width = (max > 0 ? (h.scrollTop / max * 100) : 0) + '%';
   }
+  window.addEventListener('scroll', updateProgress, {passive:true});
+  updateProgress();
   var menuBtn = document.getElementById('menuBtn');
   var nav = document.getElementById('mobileNav');
   menuBtn.addEventListener('click', function(){
@@ -472,7 +513,7 @@
     var obs = new IntersectionObserver(function(entries){
       entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
     }, {threshold: 0.12});
-    document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+    document.querySelectorAll('.reveal').forEach(function(el, i){ el.style.transitionDelay = ((i % 4) * 70) + 'ms'; obs.observe(el); });
   } else {
     document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
   }
