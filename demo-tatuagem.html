@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo — Studio de Tatuagem</title>
+<meta name="description" content="Site demo em português para studio de tatuagem: portfólio, estilos e pedido de orçamento.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box} body{margin:0;font-family:Manrope,system-ui,sans-serif;background:#121212;color:#faf6ec;line-height:1.6}
+  h1,h2,h3{font-family:"Space Grotesk",sans-serif;letter-spacing:-.03em;line-height:1.05;margin:0}
+  h1{font-size:clamp(2.4rem,6vw,4.2rem)} h2{font-size:clamp(1.9rem,4vw,2.8rem)}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+  .demo-bar{background:#ffd400;color:#121212;padding:10px 0;font-size:.9rem;font-weight:800}
+  .demo-bar a{color:#121212}
+  header{padding:22px 0;border-bottom:1px solid #2e2e2e;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+  .logo{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:1.5rem}
+  .btn{display:inline-flex;background:#ffd400;color:#121212;font-weight:800;text-decoration:none;padding:14px 24px;border-radius:999px}
+  .hero{padding:70px 0;display:grid;gap:36px;align-items:center}
+  .hero p{font-size:1.15rem;color:#cfc7b0;max-width:560px;margin-top:18px}
+  .cta-row{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+  .visual{height:280px;border-radius:20px;background:linear-gradient(135deg,#2a2a2a,#121212);border:1px solid #333;display:flex;align-items:end;padding:26px}
+  .visual b{font-family:"Space Grotesk",sans-serif;font-size:1.6rem;max-width:340px}
+  section{padding:60px 0} .grid{display:grid;gap:16px;margin-top:28px}
+  .card{background:#1c1c1c;border:1px solid #2e2e2e;border-radius:16px;padding:24px}
+  .card p{color:#cfc7b0}
+  .final{background:#ffd400;color:#121212;border-radius:20px;padding:40px}
+  .final .btn{background:#121212;color:#faf6ec}
+  footer{padding:30px 0;color:#9a937f}
+  @media(min-width:760px){.hero{grid-template-columns:1.1fr .9fr}.grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="demo-bar"><div class="wrap">Demo criado pela Criaê · <a href="index.html">Voltar para o site da Criaê</a></div></div>
+<header class="wrap"><span class="logo">Studio de Tatuagem</span><a class="btn" href="https://wa.me/message/ZNRLVR6JCD77M1?text=Ol%C3%A1!%20Vi%20o%20demo%20de%20studio%20de%20tatuagem%20no%20site%20da%20Cria%C3%AA%20e%20quero%20um%20site%20assim%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener">Pedir orçamento</a></header>
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <h1>Tatuagens autorais, com técnica e cuidado em cada detalhe.</h1>
+      <p>Traços marcantes, design personalizado e um processo claro do primeiro contato até o resultado final.</p>
+      <div class="cta-row"><a class="btn" href="https://wa.me/message/ZNRLVR6JCD77M1?text=Ol%C3%A1!%20Vi%20o%20demo%20de%20studio%20de%20tatuagem%20no%20site%20da%20Cria%C3%AA%20e%20quero%20um%20site%20assim%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener">Pedir orçamento →</a></div>
+    </div>
+    <div class="visual"><b>O trabalho fala antes da conversa.</b></div>
+  </section>
+  <section>
+    <h2>Portfólio</h2>
+    <div class="grid">
+      <div class="card"><h3>Traço fino</h3><p>Desenhos delicados e precisos, com atenção aos detalhes.</p></div>
+      <div class="card"><h3>Tradicional</h3><p>Estilos clássicos, com identidade forte e duradoura.</p></div>
+      <div class="card"><h3>Personalizado</h3><p>Sua ideia transformada em um desenho único para você.</p></div>
+    </div>
+  </section>
+  <section class="final">
+    <h2>Pronto para começar a sua?</h2>
+    <p style="margin-top:12px">Conta a sua ideia e pede um orçamento, sem compromisso.</p>
+    <div style="margin-top:22px"><a class="btn" href="https://wa.me/message/ZNRLVR6JCD77M1?text=Ol%C3%A1!%20Vi%20o%20demo%20de%20studio%20de%20tatuagem%20no%20site%20da%20Cria%C3%AA%20e%20quero%20um%20site%20assim%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener">Pedir orçamento →</a></div>
+  </section>
+</main>
+<footer class="wrap"><p>Site demo · Criado pela Criaê · Ideias que viram presença.</p></footer>
+</body>
+</html>
