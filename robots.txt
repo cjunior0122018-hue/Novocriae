@@ -1,4 +1,26 @@
 User-agent: *
 Allow: /
 
+# Robôs de IA: leitura permitida (busca generativa / GEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
 Sitemap: https://www.criaeweb.com.br/sitemap.xml
